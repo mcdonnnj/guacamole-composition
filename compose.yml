@@ -1,5 +1,9 @@
 ---
-version: "3.2"
+# This Docker composition file is used to stand up an Apache Guacamole server
+# with a PostgreSQL database backend and the guacscanner utility for
+# auto-discovering and adding connections.
+
+name: guacamole-composition
 
 secrets:
   postgres_password:

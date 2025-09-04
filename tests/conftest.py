@@ -2,9 +2,12 @@
 
 https://docs.pytest.org/en/latest/writing_plugins.html#conftest-py-plugins
 """
+
 # Third-Party Libraries
 import pytest
 from python_on_whales import docker
+
+VERSION_FILE = "src/version.txt"
 
 
 @pytest.fixture(scope="session")
@@ -34,6 +37,14 @@ def postgres_container(dockerc):
     """Return the postgres container from the Docker composition."""
     # find the container by name even if it is stopped already
     return dockerc.compose.ps(services=["postgres"], all=True)[0]
+
+
+@pytest.fixture(scope="session")
+def project_version():
+    """Return the version of the project."""
+    with open(VERSION_FILE) as f:
+        project_version = f.read().strip()
+    return project_version
 
 
 def pytest_addoption(parser):
